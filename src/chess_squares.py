@@ -1,7 +1,11 @@
+import pytest
+
+
 def generate_chess_squares(files, ranks):
     pass
 
 
+@pytest.mark.it("Should return full list of chess board tuples")
 def test_generate_chess_squares_returns_a_chess_board():
     expected_squares = [
         ("A", "1"),

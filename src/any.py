@@ -5,7 +5,6 @@ def is_suspicious(crew_mates):
     pass
 
 
-@pytest.mark.it("Should return False if no imposters are found")
 def test_is_not_suspicious():
     assert (
         is_suspicious([])
@@ -23,7 +22,6 @@ def test_is_not_suspicious():
 
 
 @pytest.mark.skip()
-@pytest.mark.it("Should return True if an imposter is found")
 def test_is_suspicious():
     assert is_suspicious(["imposter"]) is True
     assert is_suspicious(["northcoder happily doing their tasks",

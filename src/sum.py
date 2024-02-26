@@ -1,11 +1,7 @@
-import pytest
-
-
 def calculate_price_percentage(percentage_changes):
     pass
 
 
-@pytest.mark.it("Should correctly calculate the final percentage")
 def test_calculate_total():
     assert calculate_price_percentage([-10, -15]) == 75
     assert calculate_price_percentage([20]) == 120

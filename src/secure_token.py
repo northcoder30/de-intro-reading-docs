@@ -2,38 +2,8 @@ import pytest
 import secrets
 
 
-def generate_secure_token(length=32):
-    if length < 32:
-        length = 32
-
-    chars = []
-    token = ''
-
-    num_punctuation_chars = secrets.choice(range(3, length-12))
-    length -= num_punctuation_chars
-
-    chars.extend(secrets.choice(punctuation)
-                 for _ in range(num_punctuation_chars))
-
-    num_cap_alpha_chars = secrets.choice(range(5, length-7))
-    length -= num_cap_alpha_chars
-
-    chars.extend(secrets.choice(ascii_uppercase)
-                 for _ in range(num_cap_alpha_chars))
-
-    num_digits = secrets.choice(range(5, length-2))
-    length -= num_digits
-
-    chars.extend(secrets.choice(digits) for _ in range(num_digits))
-
-    chars.extend(secrets.choice(ascii_lowercase) for _ in range(length))
-
-    for _ in range(len(chars)):
-        char = secrets.choice(chars)
-        chars.remove(char)
-        token += char
-
-    return token
+def generate_secure_token(length):
+    pass
 
 
 def test_returns_default_string_length_32():

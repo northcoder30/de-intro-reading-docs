@@ -105,6 +105,7 @@ if __name__ == '__main__':
     test_returns_string_with_each_of_char_types()
     test_returns_string_with_min_3_punctuation_chars()
     test_returns_string_with_min_5_upper_case_chars()
+    test_returns_string_with_min_5_numeric_chars()
     test_returns_string_with_min_length_32_when_passed_int_less_than_32()
     test_tokens_are_unique()
     test_tokens_character_types_are_in_mixed_order()

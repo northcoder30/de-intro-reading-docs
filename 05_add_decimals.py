@@ -1,8 +1,12 @@
 from test_api.checks import run_test, format_err_msg
-
+from fractions import Fraction
 
 def add_decimals(fractions_to_add):
-    pass
+    floatval = [eval(i) for i in fractions_to_add]
+    tot = 0
+    for num in range(0,len(floatval)):
+        tot += Fraction(floatval[num]).limit_denominator()
+    return str(float(tot))       
 
 
 @run_test

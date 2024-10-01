@@ -1,10 +1,28 @@
 from test_api.checks import (
     run_test, skip_test, format_err_msg, NORMAL_RED, DEFAULT)
+import secrets
+import string
 
+def generate_secure_token(length=32):
+    token_length = length
+    if token_length < 32:
+        token_length = 32
 
-def generate_secure_token(length):
-    pass
+    token = ''
+    # Want to first add the characters we need then add the remaning chars
+    token += ''.join(secrets.choice(string.ascii_uppercase) for i in range(5))
+    token += secrets.choice(string.ascii_lowercase)
+    token += ''.join(secrets.choice(string.digits) for i in range(5))
+    token += ''.join(secrets.choice(string.punctuation) for i in range(3))
+    
+    alphabet = string.ascii_lowercase + string.ascii_uppercase + string.digits # exclude punctuation since we already have 3
+    token += ''.join(secrets.choice(alphabet) for i in range(token_length-len(token)))
 
+    # shuffle them so they are randomly distrubuted
+    token_list = list(token)
+    secrets.SystemRandom().shuffle(token_list)
+    
+    return ''.join(token_list)
 
 @run_test
 def test_returns_default_string_length_32():
@@ -12,13 +30,13 @@ def test_returns_default_string_length_32():
         format_err_msg(32, len(generate_secure_token()))
 
 
-@skip_test
+@run_test
 def test_returns_string_length_provided():
     assert len(generate_secure_token(48)) == 48, \
         format_err_msg(48, len(generate_secure_token(48)))
 
 
-@skip_test
+@run_test
 def test_returns_string_with_each_of_char_types():
     from re import search
     from string import ascii_lowercase, ascii_uppercase, digits, punctuation
@@ -34,7 +52,7 @@ def test_returns_string_with_each_of_char_types():
                                  f"digits and punctuation characters{DEFAULT}")
 
 
-@skip_test
+@run_test
 def test_returns_string_with_min_3_punctuation_chars():
     import string
     token = generate_secure_token()
@@ -46,7 +64,7 @@ def test_returns_string_with_min_3_punctuation_chars():
                                          f"characters{DEFAULT}")
 
 
-@skip_test
+@run_test
 def test_returns_string_with_min_5_upper_case_chars():
     token = generate_secure_token()
 
@@ -57,7 +75,7 @@ def test_returns_string_with_min_5_upper_case_chars():
                                         f"characters{DEFAULT}")
 
 
-@skip_test
+@run_test
 def test_returns_string_with_min_5_numeric_chars():
     token = generate_secure_token()
 
@@ -67,13 +85,13 @@ def test_returns_string_with_min_5_numeric_chars():
                                      f"contain at least 5 digits{DEFAULT}")
 
 
-@skip_test
+@run_test
 def test_returns_string_with_min_length_32_when_passed_int_less_than_32():
     assert len(generate_secure_token(10)) == 32, \
         format_err_msg(32, len(generate_secure_token(10)))
 
 
-@skip_test
+@run_test
 def test_tokens_are_unique():
     tokens = set()
 
@@ -83,7 +101,7 @@ def test_tokens_are_unique():
                                 f"unique{DEFAULT}")
 
 
-@skip_test
+@run_test
 def test_tokens_character_types_are_in_mixed_order():
     from re import findall
     from string import ascii_lowercase, ascii_uppercase, digits, punctuation
